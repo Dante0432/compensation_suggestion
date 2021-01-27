@@ -1,6 +1,7 @@
 const catchAsync = require("../utils/catchAsync");
 const axios = require('axios');
-const EXPERIENCE = "1-plus-year";
+const regression = require('regression')
+
 
 const axiosApi = axios.create({ baseURL: 'https://torre.bio/api'})
 const axiosBrowser = axios.create(
@@ -13,6 +14,7 @@ const axiosBrowser = axios.create(
     }
 )
 
+const EXPERIENCE = "1-plus-year";
 function arrToFilter(arr, length){
     arr.sort((acc,el)=>el.weight-acc.weight)
     arr.splice(length)
@@ -35,10 +37,13 @@ exports.calculator = catchAsync(async (req,res,next) => {
     const compensationPeopleData = results[0].data.aggregators.compensationrange
     const compensationOpportunitiesData = results[1].data.aggregators.compensationrange
 
+    const resultRegression = regression.linear([[0, 1], [32, 67], [12, 79]])
+
     res.status(200).json({
       status: "success",
       person,
       compensationPeopleData,
-      compensationOpportunitiesData
+      compensationOpportunitiesData,
+      resultRegression
     });
 })
