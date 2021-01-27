@@ -13,8 +13,8 @@ const morgan = require("morgan")
 
 
 const app = express();
-/****Middlewares****/
 
+/****Middlewares****/
 app.use(cors());
 app.use(helmet());
 const limiter = rateLimit({
@@ -35,14 +35,7 @@ app.use(function(req, res, next) {
   next();
 });
 app.use(morgan('dev'))
+
 /****Routes to use****/
 
-/*
-app.all("*", (req, res, next) => {
-  next(new AppError(`Can't find ${req.originalUrl} on this server!`, 404))
-});
-*/ 
-
-
-//app.use(globalErrorHandler);
 module.exports = app;
