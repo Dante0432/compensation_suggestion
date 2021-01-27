@@ -1,5 +1,13 @@
 module.exports = fn => {
-    return (req, res, next) => {
-        fn(req, res, next).catch(next);
-    };
-};
+    return async (req, res, next) => {
+        try{
+            await fn(req, res, next)
+            next()
+        }catch (e) {
+            res.status(404).json({
+              status: "error",
+              error: e.message
+            });
+        }
+    }
+}
