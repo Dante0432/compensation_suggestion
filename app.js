@@ -10,7 +10,7 @@ const hpp = require("hpp");
 const morgan = require("morgan")
 
 /****Routes to import****/
-
+const calculatorRouter = require("./routes/calculatorRouter");
 
 const app = express();
 
@@ -37,5 +37,6 @@ app.use(function(req, res, next) {
 app.use(morgan('dev'))
 
 /****Routes to use****/
+app.use("/api/v1/calculator", calculatorRouter);
 
 module.exports = app;
